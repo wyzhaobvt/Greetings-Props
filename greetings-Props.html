@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greetings-Props</title>
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+    crossorigin="anonymous"
+  />
+  <style>
+    div{
+        height:100vh;
+    }
+</style>
+</head>
+<body>
+    <div id="root"  class="d-flex flex-column">This will change</div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script> 
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+
+         class MyClassComp extends React.Component{
+            constructor(props){
+                super(props)
+            }
+            render(){
+                return (<div className="d-flex flex-column align-items-center justify-content-center">
+                    <h2 className='align-self-start ms-2'>Class Component:</h2>
+                    <h3>{this.props.name || "What's your name?" }</h3>
+                <input className="mt-3" placeholder="Enter name" type='text' id='nameClass'/>
+                <button  className="btn btn-primary mt-3 w-25" onClick={this.props.onClickHandler}>Click me</button></div>)
+            }
+         }
+
+         let onClickClass = () => {
+            let name = document.getElementById('nameClass').value
+            let inputName =(name.trim()==='')? 'Please enter your name...': `Hello ${name}!`;
+            let root = ReactDOM.createRoot(document.getElementById("root"))
+            root.render(<MyClassComp onClickHandler={onClickClass} name={inputName} />)
+         }
+
+
+        let MyFunComp = (props) =>{
+            return (<div className="d-flex flex-column align-items-center justify-content-center">
+                <h2 className='align-self-start ms-2'>Functional Component:</h2>
+                    <h3>{props.name || "What's your name?" }</h3>
+                <input className="mt-3" placeholder="Enter name" type='text' id='nameFun'/>
+                <button  className="btn btn-primary mt-3 w-25" onClick={props.ClickHandler}>Click me</button></div>)
+            
+        }
+            
+         let onClickFun = () => {
+            let name = document.getElementById('nameFun').value
+            let inputName =(name.trim()==='')? 'Please enter your name...': `Hello ${name}!`;
+            let root = ReactDOM.createRoot(document.getElementById("root"))
+            root.render(<MyFunComp ClickHandler={onClickFun} name={inputName} />)
+         }
+
+        let root = ReactDOM.createRoot(document.getElementById("root"))
+        root.render(<><MyClassComp onClickHandler={onClickClass}/><MyFunComp ClickHandler={onClickFun}/></>)
+
+    </script>
+    
+</body>
+</html>
